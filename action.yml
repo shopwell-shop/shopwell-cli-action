@@ -1,0 +1,16 @@
+name: 'Shopwell CLI Action'
+description: 'GitHub Action for Shopwell CLI, a command line tool helper for Shopwell'
+author: 'Shopwell'
+branding:
+  color: 'green'
+  icon: 'package'
+
+inputs:
+  version:
+    description: 'Shopwell CLI version'
+    default: 'latest'
+    required: false
+
+runs:
+  using: 'node24'
+  main: 'dist/main.js'

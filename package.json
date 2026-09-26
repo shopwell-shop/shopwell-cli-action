@@ -1,0 +1,21 @@
+{
+	"name": "shopwell-cli-action",
+	"version": "3.0.0",
+	"description": "",
+	"main": "src/main.ts",
+	"scripts": {
+		"build": "esbuild --minify --keep-names --platform=node --format=cjs --bundle src/main.ts --outdir=dist"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "Apache-2.0",
+	"dependencies": {
+		"@actions/core": "^3.0.0",
+		"@actions/tool-cache": "^4.0.0",
+		"@types/node": "^26.0.0"
+	},
+	"devDependencies": {
+		"esbuild": "^0.28.2",
+		"typescript": "^7.0.2"
+	}
+}

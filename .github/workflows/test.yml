@@ -1,0 +1,51 @@
+name: Test
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    # The Action is published before the independently built Shopwell CLI binaries.
+    if: ${{ vars.SHOPWELL_CLI_READY == 'true' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v7
+
+      - name: Install Shopwell CLI
+        uses: ./.
+
+      - name: Test binary
+        run: shopwell-cli --version
+
+      - name: Clone FroshTools
+        run: git clone https://github.com/FriendsOfShopwell/FroshTools.git
+
+      - name: Zip FroshTools
+        run: shopwell-cli extension zip FroshTools
+
+      - name: Validate
+        run: shopwell-cli extension validate FroshTools-*.zip
+
+  test-specific-version:
+    if: ${{ vars.SHOPWELL_CLI_READY == 'true' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v7
+
+      - name: Install Shopwell CLI
+        uses: ./
+        with:
+          version: "0.7.1"
+
+      - name: Test binary
+        run: shopwell-cli --version
